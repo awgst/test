@@ -55,7 +55,7 @@ app.post("/search", async (req, res) => {
   return res.status(400).json({ error: lastError?.message || "Bad Request", detail: lastError });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`API server running on port ${PORT}`);
 });
