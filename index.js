@@ -36,13 +36,14 @@ app.post("/search", async (req, res) => {
       const response = await axios.get("https://www.googleapis.com/customsearch/v1", {
         params: { q: finalQ, key, cx, num, start },
       });
+      response.data.success = true;
       return res.json(response.data);
     } catch (err) {
       lastError = err;
       // If error is not 400, break and return
       if (!err.response || err.response.status !== 400) {
         console.log(err);
-        return res.status(500).json({ error: err.message });
+        return res.status(200).json({ success: false, error: err.message, detail: err });
       }
       sourceIdx++;
       start = 1;
@@ -50,7 +51,7 @@ app.post("/search", async (req, res) => {
     }
   }
   // If all sources failed with 400
-  return res.status(400).json({ error: lastError?.message || "Bad Request", detail: lastError });
+  return res.status(200).json({ success: false, error: lastError?.message || "Bad Request", detail: lastError });
 });
 
 const PORT = process.env.PORT || 3001;
