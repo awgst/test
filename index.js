@@ -26,9 +26,7 @@ app.post("/search", async (req, res) => {
   if (!num) num = 10;
   if (!start) start = 1;
   const sources = [
-    "site:linkedin.com/in",
-    "site:techinasia.com/profile",
-    "site:id.bold.pro/my"
+    "site:linkedin.com/in"
   ];
   let sourceIdx = 0;
   let lastError = null;
